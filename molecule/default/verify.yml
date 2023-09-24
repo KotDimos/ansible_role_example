@@ -1,0 +1,33 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  vars_files:
+    - ../../defaults/main.yml
+  tasks:
+    - name: Check if nginx is installed
+      become: true
+      ansible.builtin.package:
+        name: nginx
+        state: present
+      check_mode: true
+      register: install
+      failed_when: (install is changed) or (install is failed)
+
+    - name: Check for nginx status
+      become: true
+      ansible.builtin.service_facts:
+
+    - name: Verify status nginx
+      become: true
+      ansible.builtin.assert:
+        that:
+          - "'{{ ansible_facts.services['nginx.service'].state }}' == 'running'"
+        fail_msg: "service is not running or service is failed"
+        success_msg: "nginx is running"
+
+    - name: Verify nginx is up and running
+      become: true
+      ansible.builtin.uri:
+        url: "http://localhost:{{ nginx_port }}"
+        status_code: 200

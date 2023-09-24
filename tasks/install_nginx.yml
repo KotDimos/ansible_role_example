@@ -1,0 +1,12 @@
+---
+- name: "Install dependencies"
+  become: true
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+
+- name: "Install nginx"
+  become: true
+  ansible.builtin.yum:
+    name: nginx
+    state: latest

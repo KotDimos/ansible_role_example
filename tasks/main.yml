@@ -1,0 +1,4 @@
+---
+- ansible.builtin.include_tasks: "install_nginx.yml"
+- ansible.builtin.include_tasks: "start_nginx.yml"
+- ansible.builtin.include_tasks: "copy_config.yml"

@@ -1,0 +1,5 @@
+---
+nginx_port: 8080
+nginx_error_log_output: '/var/log/nginx/error.log'
+nginx_access_log_output: '/var/log/nginx/access.log'
+nginx_error_log_level: 'error'
